@@ -1,3 +1,19 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
+import { CanvasComponent } from './pages/canvas/canvas.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  {
+    path: "home",
+    component: HomeComponent,
+  },
+  {
+    path: 'level/:id',
+    component: CanvasComponent
+  },
+  {
+    path: '**',
+    redirectTo: "home",
+    pathMatch: "full",
+  },
+];

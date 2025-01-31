@@ -1,0 +1,115 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="30" class="help-container">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px">
+      <div fxFlex>
+        <h1>- Regras -</h1>
+      </div>
+      <div fxFlex>
+        <ul>
+          <li>
+            O objetivo do Sokoban é levar as caixas para locais designados, empurrando-as.
+          </li>
+          <li>Para fazer isso, o usuário move um homem que chamamos Sokoban.</li>
+          <li>Sokoban pode mover-se para cima, para baixo, esquerda e direita.</li>
+          <li>Ele não pode passar por paredes ou caixas.</li>
+          <li>Ele pode empurrar apenas uma caixa de cada vez (nunca puxar).</li>
+          <li>A qualquer momento, uma praça só pode ser ocupada por uma parede, caixa ou homem.</li>
+          <li>Use a tecla W para mover-se para cima, uma chave para a esquerda, S chave para baixo e chave D para a direita.</li>
+        </ul>
+      </div>
+      <div fxflex>
+        <img src="assets/game.png" />
+      </div>
+      <div fxflex>
+        <button mat-stroked-button [routerLink]="['/home']">
+          Início
+        </button>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="center center" class="canvas-container">
+    <div fxflex="10">
+      <h1>
+        Level: <span class="level">{{ id }}</span>
+      </h1>
+    </div>
+
+    <div fxFlex="10">
+      <h3>
+        Movimentações: {{ currentMoves }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máximo:
+        {{ targetMoves }}
+      </h3>
+    </div>
+
+    <div fxFlex="60" *ngIf="!hasWon && !hasLost">
+      <div class="container">
+        <div class="row" *ngFor="let row of board; let i = index">
+          <div
+            class="column"
+            [ngStyle]="{ 'background-image': setImage(i, j) }"
+            *ngFor="let column of row; let j = index"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div fxFlex="40" *ngIf="hasWon">
+      <img class="level-complete" src="assets/canvas-images/success.png" />
+    </div>
+
+    <div fxFlex="40" *ngIf="hasLost">
+      <img class="level-complete" src="assets/canvas-images/failed.jpg" />
+    </div>
+
+    <div fxFlex *ngIf="hasWon || hasLost">
+      <div class="next-level">
+        <button (click)="navigate()">
+          Próxima fase
+        </button>
+      </div>
+    </div>
+
+    <div fxFlex *ngIf="hasWon || hasLost">
+      <div class="retry-level">
+        <button (click)="refresh()">
+          Tentar novamente
+        </button>
+      </div>
+    </div>
+
+    <div fxFlex *ngIf="!hasWon && !hasLost">
+      <div class="buttons">
+        <button
+          mat-button
+          [disabled]="id - 1 <= 0"
+          [routerLink]="['/level', id - 1]"
+        >
+          Fase anterior
+        </button>
+        <button mat-button (click)="moveUp()" id="up-button">
+          <i class="material-icons">keyboard_arrow_up</i>
+        </button>
+        <button mat-button (click)="moveDown()" id="down-button">
+          <i class="material-icons">keyboard_arrow_down</i>
+        </button>
+        <button mat-button (click)="moveLeft()" id="left-button">
+          <i class="material-icons">keyboard_arrow_left</i>
+        </button>
+        <button mat-button (click)="moveRight()" id="right-button">
+          <i class="material-icons">keyboard_arrow_right</i>
+        </button>
+        <button mat-button (click)="refresh()">
+          <i class="material-icons">cached</i>
+        </button>
+        <button
+          mat-button
+          [disabled]="id + 1 > allLevels.length"
+          [routerLink]="['/level', id + 1]"
+        >
+          Próxima fase
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
