@@ -8,6 +8,7 @@ import { Position } from '../../shared/models/position.model';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SupabaseService } from '../../shared/services/supabase.service';
 
 
 @Component({
@@ -46,9 +47,10 @@ export class CanvasComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private levelService: LevelService,
+    private supabaseService: SupabaseService,
   ) { }
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this.sub = this.route.params.subscribe((params) => {
       this.id = +params["id"];
       this.allLevels = this.levelService.getAllLevels();
@@ -61,6 +63,26 @@ export class CanvasComponent implements OnInit {
       this.targetMoves = this.currentLevel.targetMoves;
       this.setBoard();
     });
+
+    this.supabaseService.getConnection()
+      .channel('public:movimentos')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'movimentos' }, payload => {
+        this.movimentar((payload.new as { direcao: string }).direcao);
+      })
+      .subscribe();
+  }
+
+  public movimentar(direcao: string): void {
+    console.log('Direção recebida:', direcao);
+    if (direcao == "esquerda") {
+      this.moveLeft();
+    } else if (direcao == "direita") {
+      this.moveRight();
+    } else if (direcao == "cima") {
+      this.moveUp();
+    } else if (direcao == "baixo") {
+      this.moveDown();
+    }
   }
 
   public navigate(): void {

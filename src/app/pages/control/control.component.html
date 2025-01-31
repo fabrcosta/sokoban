@@ -30,62 +30,12 @@
   <div fxLayout="column" fxLayoutAlign="center center" class="canvas-container">
     <div fxflex="10">
       <h1>
-        Level: <span class="level">{{ id }}</span>
+        Remote control
       </h1>
     </div>
 
-    <div fxFlex="10">
-      <h3>
-        Movimentações: {{ currentMoves }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Limite:
-        {{ targetMoves }}
-      </h3>
-    </div>
-
-    <div fxFlex="60" *ngIf="!hasWon && !hasLost">
-      <div class="container">
-        <div class="row" *ngFor="let row of board; let i = index">
-          <div
-            class="column"
-            [ngStyle]="{ 'background-image': setImage(i, j) }"
-            *ngFor="let column of row; let j = index"
-          ></div>
-        </div>
-      </div>
-    </div>
-
-    <div fxFlex="40" *ngIf="hasWon">
-      <img class="level-complete" src="assets/canvas-images/success.png" />
-    </div>
-
-    <div fxFlex="40" *ngIf="hasLost">
-      <img class="level-complete" src="assets/canvas-images/failed.jpg" />
-    </div>
-
-    <div fxFlex *ngIf="hasWon || hasLost">
-      <div class="next-level">
-        <button (click)="navigate()">
-          Próxima fase
-        </button>
-      </div>
-    </div>
-
-    <div fxFlex *ngIf="hasWon || hasLost">
-      <div class="retry-level">
-        <button (click)="refresh()">
-          Tentar novamente
-        </button>
-      </div>
-    </div>
-
-    <div fxFlex *ngIf="!hasWon && !hasLost">
+    <div fxFlex="1 1 auto" fxLayoutAlign="center center">
       <div class="buttons">
-        <button
-          mat-button
-          [disabled]="id - 1 <= 0"
-          [routerLink]="['/level', id - 1]"
-        >
-          Fase anterior
-        </button>
         <button mat-button (click)="moveUp()" id="up-button">
           <i class="material-icons">keyboard_arrow_up</i>
         </button>
@@ -97,16 +47,6 @@
         </button>
         <button mat-button (click)="moveRight()" id="right-button">
           <i class="material-icons">keyboard_arrow_right</i>
-        </button>
-        <button mat-button (click)="refresh()">
-          <i class="material-icons">cached</i>
-        </button>
-        <button
-          mat-button
-          [disabled]="id + 1 > allLevels.length"
-          [routerLink]="['/level', id + 1]"
-        >
-          Próxima fase
         </button>
       </div>
     </div>
