@@ -72,6 +72,21 @@ export class CanvasComponent implements OnInit {
       .subscribe();
   }
 
+  public keyEvent(event: KeyboardEvent): void {
+    if (event.key === 'w' || event.key === 'W') {
+      this.moveUp();
+    }
+    if (event.key === 's' || event.key === 'S') {
+      this.moveDown();
+    }
+    if (event.key === 'a' || event.key === 'A') {
+      this.moveLeft();
+    }
+    if (event.key === 'd' || event.key === 'D') {
+      this.moveRight();
+    }
+  }
+
   public movimentar(direcao: string): void {
     console.log('Direção recebida:', direcao);
     if (direcao == "esquerda") {
