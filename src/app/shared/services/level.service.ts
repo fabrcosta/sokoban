@@ -11,7 +11,7 @@ export class LevelService {
   private allLevels: Level[] = [
     new Level(
       1,
-      3,
+      9,
       new Positions(
         new Position(2, 3),
         [new Position(2, 2), new Position(3, 2)],
@@ -27,7 +27,7 @@ export class LevelService {
     ),
     new Level(
       2,
-      19,
+      29,
       new Positions(
         new Position(1, 3),
         [new Position(2, 3), new Position(3, 4)],
@@ -43,7 +43,7 @@ export class LevelService {
     ),
     new Level(
       3,
-      29,
+      39,
       new Positions(
         new Position(1, 3),
         [new Position(2, 3), new Position(3, 2)],
@@ -60,7 +60,7 @@ export class LevelService {
     ),
     new Level(
       4,
-      7,
+      19,
       new Positions(
         new Position(3, 3),
         [new Position(2, 3), new Position(2, 2)],
@@ -76,7 +76,7 @@ export class LevelService {
     ),
     new Level(
       5,
-      23,
+      39,
       new Positions(
         new Position(5, 4),
         [new Position(4, 3), new Position(3, 3)],
@@ -94,7 +94,7 @@ export class LevelService {
     ),
     new Level(
       6,
-      18,
+      29,
       new Positions(
         new Position(5, 5),
         [new Position(4, 4), new Position(3, 4)],
