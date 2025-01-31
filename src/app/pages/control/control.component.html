@@ -35,7 +35,7 @@
     </div>
 
     <div fxFlex="1 1 auto" fxLayoutAlign="center center">
-      <div class="buttons">
+      <div class="buttons" (window:keydown)="keyEvent($event)">
         <button mat-button (click)="moveUp()" id="up-button">
           <i class="material-icons">keyboard_arrow_up</i>
         </button>
